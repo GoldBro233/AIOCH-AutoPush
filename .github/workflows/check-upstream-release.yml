@@ -29,14 +29,14 @@ jobs:
         shell: bash
 
     steps:
+      - name: Install workflow dependencies
+        run: |
+          pacman -Syu --noconfirm --needed git curl jq nodejs openssh pacman-contrib
+
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-
-      - name: Install workflow dependencies
-        run: |
-          pacman -Syu --noconfirm --needed git curl jq nodejs openssh pacman-contrib
 
       - name: Prepare build user
         run: |
