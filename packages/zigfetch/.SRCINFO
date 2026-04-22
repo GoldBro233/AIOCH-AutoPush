@@ -1,0 +1,14 @@
+pkgbase = zigfetch
+	pkgdesc = Minimal neofetch/fastfetch-like system information tool written in Zig
+	pkgver = 0.26.0
+	pkgrel = 1
+	url = https://github.com/utox39/zigfetch
+	arch = x86_64
+	license = MIT
+	makedepends = zig
+	depends = pciutils
+	options = !debug
+	source = zigfetch-0.26.0.tar.gz::https://github.com/utox39/zigfetch/archive/refs/tags/v0.26.0.tar.gz
+	sha256sums = 030566686831fc148eb706766944d235d670b3e515409f2c3620ec63f87f6c42
+
+pkgname = zigfetch
