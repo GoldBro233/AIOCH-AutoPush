@@ -19,6 +19,14 @@ package_root() {
   fi
 }
 
+package_metadata_files() {
+  require_env PACKAGE_DIR
+
+  printf '%s\n' \
+    "$PACKAGE_DIR/PKGBUILD" \
+    "$PACKAGE_DIR/.SRCINFO"
+}
+
 parse_tag_version() {
   local latest_tag="$1"
 
@@ -160,9 +168,14 @@ push_aur() {
     local relative_path
     relative_path="${file#${PACKAGE_DIR}/}"
 
+    if [[ ! -f "$GITHUB_WORKSPACE/$file" ]]; then
+      echo "Expected package metadata file does not exist: $file" >&2
+      exit 1
+    fi
+
     mkdir -p "$workdir/aur/$(dirname "$relative_path")"
     cp "$GITHUB_WORKSPACE/$file" "$workdir/aur/$relative_path"
-  done < <(git -C "$GITHUB_WORKSPACE" ls-files "$PACKAGE_DIR")
+  done < <(package_metadata_files)
 
   cd "$workdir/aur"
   git config user.name "github-actions[bot]"
@@ -184,13 +197,12 @@ push_github() {
   require_env PACKAGE_NAME
   require_env LATEST_VERSION
 
-  git config --global --add safe.directory "$GITHUB_WORKSPACE"
   cd "$GITHUB_WORKSPACE"
 
   git config user.name "github-actions[bot]"
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-  git add "$PACKAGE_DIR"
+  package_metadata_files | xargs git add --
   if git diff --cached --quiet; then
     echo "No GitHub metadata changes to push."
     return
