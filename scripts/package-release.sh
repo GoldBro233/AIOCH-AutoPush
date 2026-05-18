@@ -148,9 +148,10 @@ push_aur() {
   require_env AUR_TARGET_BRANCH
   require_env LATEST_VERSION
 
-  local workdir
+  local workdir cleanup_cmd
   workdir="$(mktemp -d)"
-  trap 'rm -rf "$workdir"' EXIT
+  printf -v cleanup_cmd 'rm -rf -- %q' "$workdir"
+  trap "$cleanup_cmd" EXIT
 
   git clone "$AUR_REMOTE_URL" "$workdir/aur"
   find "$workdir/aur" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
