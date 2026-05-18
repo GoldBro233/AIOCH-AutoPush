@@ -1,6 +1,6 @@
 # Maintainer: Goldbro233 bowensun_06@outlook.com
 pkgname=zigfetch
-pkgver=0.26.0
+pkgver=0.27.1
 pkgrel=1
 pkgdesc='Minimal neofetch/fastfetch-like system information tool written in Zig'
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=('pciutils')
 makedepends=('zig')
 options=('!debug')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('030566686831fc148eb706766944d235d670b3e515409f2c3620ec63f87f6c42')
+sha256sums=('8568efea2ec305513124978bbaf6db82b2293e9a0f8952d0d36a786bab57f90b')
 
 build() {
     export ZIG_GLOBAL_CACHE_DIR="$srcdir/zig-cache"
