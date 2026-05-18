@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=
+Comment=AIO Coding Hub
+Exec=aio-coding-hub
+StartupWMClass=aio-coding-hub
+Icon=aio-coding-hub
+Name=AIO Coding Hub
+Terminal=false
+Type=Application
